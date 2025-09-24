@@ -25,7 +25,8 @@ jobs :
             - name : build code 
               run : |
                 cd src/product-catalog
-                go build -o product-catalog . 
+                go mod download   
+                go build -o product-catalog-srvice main.go  
 
             - name : unit test
               run : |
@@ -81,7 +82,7 @@ jobs :
 
     Ubdate-k8s-manifists :
         runs-on : ubunto-latest
-        needs : docker-login-image-building-and-pushing 
+        needs : [docker-login-image-building-and-pushing , code quality , build] 
         steps :
             - name : chekout code 
               uses : actions/checkout@v4
